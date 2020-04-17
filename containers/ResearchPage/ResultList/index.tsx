@@ -39,6 +39,9 @@ const List = styled.ul``;
 const Item = styled.li<{ star: boolean }>`
   margin-bottom: 5px;
   ${({ star }) => star && 'font-weight: bold;'}
+  &:hover {
+    background-color: #ddd;
+  }
 `;
 
 const ItemContent = styled.div`

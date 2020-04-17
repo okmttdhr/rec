@@ -26,6 +26,7 @@ export type Research = {
   id: string;
   name: string;
   searches: Searches;
+  notes: string;
   createdAt: string;
 };
 

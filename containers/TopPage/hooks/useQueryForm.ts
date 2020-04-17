@@ -37,10 +37,11 @@ export const useQueryForm = (setResearches: Dispatch<SetStateAction<Researches>>
           return {
             ...rs,
             [researchID]: {
+              createdAt: 'string',
               id: researchID,
               name: q,
+              notes: '',
               searches,
-              createdAt: 'string',
             },
           };
         });

@@ -7,6 +7,8 @@ import { QueryForm } from './QueryForm';
 import { useSearchListActions } from './hooks/useSearchListActions';
 import { SearchList } from './SearchList';
 import { MainLayout } from 'layouts/Main';
+import { useNotes } from './hooks/useNotes';
+import { Notes } from './Notes';
 
 export const ResearchPageContainer: React.FC<{}> = () => {
   const {
@@ -14,6 +16,7 @@ export const ResearchPageContainer: React.FC<{}> = () => {
   } = useRouter();
   const { research, setResearches } = useResearch(id as string);
   const queryFormState = useQueryForm(research, setResearches);
+  const notesState = useNotes(research, setResearches);
   const searchListState = useSearchListActions(research, setResearches);
   const resultActionsState = useResultListActions(research, setResearches);
 
@@ -21,6 +24,7 @@ export const ResearchPageContainer: React.FC<{}> = () => {
     <MainLayout>
       <QueryForm {...queryFormState}></QueryForm>
       <h1>Research for &quot;{research?.name}&quot;</h1>
+      <Notes {...notesState}></Notes>
       <SearchList {...searchListState} resultActionsState={resultActionsState}></SearchList>
     </MainLayout>
   );
