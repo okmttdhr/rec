@@ -1,0 +1,4 @@
+next.config.js
+server.js
+public/sw*
+public/workbox*
