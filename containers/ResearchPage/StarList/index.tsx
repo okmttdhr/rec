@@ -24,12 +24,14 @@ export const Item: React.FC<Props> = ({ stars, resultActionsState, openAll }) =>
 };
 
 export const StarList: React.FC<Props> = (props) => {
-  const { show, toggle } = props;
+  const { show, toggle, stars } = props;
   return (
-    <List>
-      <Title onClick={() => toggle()}>Stars</Title>
-      {show && <Item {...props}></Item>}
-    </List>
+    Object.values(stars).length > 0 && (
+      <List>
+        <Title onClick={() => toggle()}>Stars</Title>
+        {show && <Item {...props}></Item>}
+      </List>
+    )
   );
 };
 
