@@ -19,6 +19,7 @@ module.exports = {
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react/recommended',
+    "plugin:react-hooks/recommended",
 
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
@@ -27,6 +28,6 @@ module.exports = {
     quotes: ['warn', 'single'],
     '@typescript-eslint/camelcase': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'off',
-    'react/prop-types': 'off'
+    'react/prop-types': 'off',
   }
 };
