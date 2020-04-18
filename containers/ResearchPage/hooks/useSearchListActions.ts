@@ -1,10 +1,19 @@
-import { Search, Research, Researches } from 'types/research';
+import { Search, Research, Researches, Results } from 'types/research';
 import { useCallback, Dispatch, SetStateAction, useMemo } from 'react';
 
 export const useSearchListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const searches = useMemo(() => {
     return research?.searches ?? [];
   }, [research]);
+
+  const openAll = useCallback(
+    (results: Results) => {
+      Object.values(results).forEach((r) => {
+        window.open(r.link);
+      });
+    },
+    [research],
+  );
 
   const toggle = useCallback(
     (search: Search) => {
@@ -49,6 +58,7 @@ export const useSearchListActions = (research: Research, setResearches: Dispatch
 
   return {
     archive,
+    openAll,
     searches,
     toggle,
   };

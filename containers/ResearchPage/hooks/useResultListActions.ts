@@ -2,15 +2,6 @@ import { Search, Result, Research, Researches, Results } from 'types/research';
 import { useCallback, Dispatch, SetStateAction } from 'react';
 
 export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
-  const openAll = useCallback(
-    (results: Results) => {
-      Object.values(results).forEach((r) => {
-        window.open(r.link);
-      });
-    },
-    [research],
-  );
-
   const toggleStar = useCallback(
     (search: Search, result: Result) => {
       const results = {
@@ -70,7 +61,6 @@ export const useResultListActions = (research: Research, setResearches: Dispatch
 
   return {
     archive,
-    openAll,
     toggleStar,
   };
 };

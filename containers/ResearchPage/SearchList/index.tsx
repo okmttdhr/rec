@@ -8,7 +8,7 @@ type Props = ReturnType<typeof useSearchListActions> & {
   resultActionsState: ReturnType<typeof useResultListActions>;
 };
 
-export const SearchList: React.FC<Props> = ({ archive, searches, toggle, resultActionsState }) => {
+export const SearchList: React.FC<Props> = ({ archive, searches, toggle, resultActionsState, openAll }) => {
   return (
     <List>
       {Object.values(searches).map((s) => {
@@ -18,6 +18,7 @@ export const SearchList: React.FC<Props> = ({ archive, searches, toggle, resultA
               <Title onClick={() => toggle(s)}>{s.q}</Title>
               <ArchiveButton onClick={() => archive(s)}>Archive</ArchiveButton>
             </TitleWrapper>
+            <OpenAllButton onClick={() => openAll(s.results)}>Open All</OpenAllButton>
             {s.show && <ResultList {...resultActionsState} search={s}></ResultList>}
           </li>
         );
@@ -47,4 +48,8 @@ const Title = styled.h2`
 
 const ArchiveButton = styled.button`
   margin-left: auto;
+`;
+
+const OpenAllButton = styled.button`
+  margin-bottom: 10px;
 `;

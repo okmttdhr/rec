@@ -7,10 +7,9 @@ type Props = ReturnType<typeof useResultListActions> & {
   search: Search;
 };
 
-export const ResultList: React.FC<Props> = ({ search, openAll, toggleStar, archive }) => {
+export const ResultList: React.FC<Props> = ({ search, toggleStar, archive }) => {
   return (
     <div>
-      <OpenAllButton onClick={() => openAll(search.results)}>Open All</OpenAllButton>
       <List>
         {Object.values(search.results).map((r) => {
           return (
@@ -29,10 +28,6 @@ export const ResultList: React.FC<Props> = ({ search, openAll, toggleStar, archi
     </div>
   );
 };
-
-const OpenAllButton = styled.button`
-  margin-bottom: 10px;
-`;
 
 const List = styled.ul``;
 
