@@ -1,14 +1,12 @@
-import { Search, Result, Research, Researches } from 'types/research';
+import { Search, Result, Research, Researches, Results } from 'types/research';
 import { useCallback, Dispatch, SetStateAction } from 'react';
 
 export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const openAll = useCallback(
-    (search: Search) => {
-      Object.values(search.results)
-        .reverse()
-        .forEach((r) => {
-          window.open(r.link);
-        });
+    (results: Results) => {
+      Object.values(results).forEach((r) => {
+        window.open(r.link);
+      });
     },
     [research],
   );

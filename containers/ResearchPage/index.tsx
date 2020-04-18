@@ -9,6 +9,8 @@ import { SearchList } from './SearchList';
 import { MainLayout } from 'layouts/Main';
 import { useNotes } from './hooks/useNotes';
 import { Notes } from './Notes';
+import { useStarList } from './hooks/useStarList';
+import { StarList } from './StarList';
 
 export const ResearchPageContainer: React.FC<{}> = () => {
   const {
@@ -19,12 +21,14 @@ export const ResearchPageContainer: React.FC<{}> = () => {
   const notesState = useNotes(research, setResearches);
   const searchListState = useSearchListActions(research, setResearches);
   const resultActionsState = useResultListActions(research, setResearches);
+  const starListState = useStarList(research);
 
   return (
     <MainLayout>
       <QueryForm {...queryFormState}></QueryForm>
       <h1>Research for &quot;{research?.name}&quot;</h1>
       <Notes {...notesState}></Notes>
+      <StarList {...starListState} resultActionsState={resultActionsState}></StarList>
       <SearchList {...searchListState} resultActionsState={resultActionsState}></SearchList>
     </MainLayout>
   );

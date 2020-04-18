@@ -13,7 +13,7 @@ export const SearchList: React.FC<Props> = ({ archive, searches, toggle, resultA
     <List>
       {Object.values(searches).map((s) => {
         return (
-          <li key={s.q}>
+          <li key={s.id}>
             <TitleWrapper>
               <Title onClick={() => toggle(s)}>{s.q}</Title>
               <ArchiveButton onClick={() => archive(s)}>Archive</ArchiveButton>
