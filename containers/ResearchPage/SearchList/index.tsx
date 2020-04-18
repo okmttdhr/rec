@@ -18,8 +18,12 @@ export const SearchList: React.FC<Props> = ({ archive, searches, toggle, resultA
               <Title onClick={() => toggle(s)}>{s.q}</Title>
               <ArchiveButton onClick={() => archive(s)}>Archive</ArchiveButton>
             </TitleWrapper>
-            <OpenAllButton onClick={() => openAll(s.results)}>Open All</OpenAllButton>
-            {s.show && <ResultList {...resultActionsState} search={s}></ResultList>}
+            {s.show && (
+              <div>
+                <OpenAllButton onClick={() => openAll(s.results)}>Open All</OpenAllButton>
+                <ResultList {...resultActionsState} search={s}></ResultList>
+              </div>
+            )}
           </li>
         );
       })}

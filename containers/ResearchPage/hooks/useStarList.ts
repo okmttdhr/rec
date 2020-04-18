@@ -5,6 +5,14 @@ export const useStarList = (research: Research) => {
   const [stars, setStars] = useState<Searches>({});
   const [show, setShow] = useState(true);
 
+  const openAll = useCallback((searches: Searches) => {
+    Object.values(searches).forEach((s) => {
+      Object.values(s.results).forEach((r) => {
+        window.open(r.link);
+      });
+    });
+  }, []);
+
   const toggle = useCallback(() => {
     setShow((s) => !s);
   }, [setShow]);
@@ -45,8 +53,9 @@ export const useStarList = (research: Research) => {
   }, [research]);
 
   return {
-    stars,
+    openAll,
     show,
+    stars,
     toggle,
   };
 };

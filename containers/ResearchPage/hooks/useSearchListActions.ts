@@ -6,14 +6,11 @@ export const useSearchListActions = (research: Research, setResearches: Dispatch
     return research?.searches ?? [];
   }, [research]);
 
-  const openAll = useCallback(
-    (results: Results) => {
-      Object.values(results).forEach((r) => {
-        window.open(r.link);
-      });
-    },
-    [research],
-  );
+  const openAll = useCallback((results: Results) => {
+    Object.values(results).forEach((r) => {
+      window.open(r.link);
+    });
+  }, []);
 
   const toggle = useCallback(
     (search: Search) => {

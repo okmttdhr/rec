@@ -8,18 +8,27 @@ type Props = ReturnType<typeof useStarList> & {
   resultActionsState: ReturnType<typeof useResultListActions>;
 };
 
-export const StarList: React.FC<Props> = ({ stars, show, toggle, resultActionsState }) => {
+export const Item: React.FC<Props> = ({ stars, resultActionsState, openAll }) => {
+  return (
+    <>
+      <OpenAllButton onClick={() => openAll(stars)}>Open All</OpenAllButton>
+      {Object.values(stars).map((s) => {
+        return (
+          <li key={s.id}>
+            <ResultList {...resultActionsState} search={s}></ResultList>
+          </li>
+        );
+      })}
+    </>
+  );
+};
+
+export const StarList: React.FC<Props> = (props) => {
+  const { show, toggle } = props;
   return (
     <List>
       <Title onClick={() => toggle()}>Stars</Title>
-      {show &&
-        Object.values(stars).map((s) => {
-          return (
-            <li key={s.id}>
-              <ResultList {...resultActionsState} search={s}></ResultList>
-            </li>
-          );
-        })}
+      {show && <Item {...props}></Item>}
     </List>
   );
 };
@@ -36,4 +45,8 @@ const Title = styled.h2`
     opacity: 0.8;
     text-decoration: underline;
   }
+`;
+
+const OpenAllButton = styled.button`
+  margin-bottom: 10px;
 `;
