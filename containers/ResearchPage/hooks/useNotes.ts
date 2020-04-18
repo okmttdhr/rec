@@ -1,6 +1,6 @@
-import { useCallback, Dispatch, SetStateAction, useMemo } from 'react';
-import { Research, Researches } from 'types/research';
 import linkifyHtml from 'linkifyjs/html';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import { Research, Researches } from 'types/research';
 
 export const useNotes = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const notes = useMemo(() => {

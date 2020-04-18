@@ -1,6 +1,7 @@
-import * as React from 'react';
 import styled from '@emotion/styled';
+import * as React from 'react';
 import { Search } from 'types/research';
+
 import { useResultListActions } from '../hooks/useResultListActions';
 
 type Props = ReturnType<typeof useResultListActions> & {

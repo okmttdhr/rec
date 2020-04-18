@@ -13,13 +13,14 @@ module.exports = {
   plugins: [
     'react',
     '@typescript-eslint',
+    'simple-import-sort'
   ],
   extends: [
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:react/recommended',
-    "plugin:react-hooks/recommended",
+    'plugin:react-hooks/recommended',
 
     'plugin:prettier/recommended',
     'prettier/@typescript-eslint',
@@ -29,5 +30,6 @@ module.exports = {
     '@typescript-eslint/camelcase': 'warn',
     '@typescript-eslint/explicit-function-return-type': 'off',
     'react/prop-types': 'off',
+    'simple-import-sort/sort': 'error'
   }
 };

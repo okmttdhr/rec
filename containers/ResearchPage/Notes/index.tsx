@@ -1,7 +1,8 @@
-import * as React from 'react';
 import styled from '@emotion/styled';
-import { useNotes } from '../hooks/useNotes';
+import * as React from 'react';
 import ContentEditable from 'react-contenteditable';
+
+import { useNotes } from '../hooks/useNotes';
 
 type Props = ReturnType<typeof useNotes>;
 

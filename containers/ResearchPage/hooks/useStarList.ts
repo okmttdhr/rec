@@ -1,5 +1,5 @@
-import { useEffect, useState, useCallback } from 'react';
-import { Results, Research, Searches, Search } from 'types/research';
+import { useCallback, useEffect, useState } from 'react';
+import { Research, Results, Search, Searches } from 'types/research';
 
 export const useStarList = (research: Research) => {
   const [stars, setStars] = useState<Searches>({});

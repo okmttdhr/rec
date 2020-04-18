@@ -1,5 +1,5 @@
-import { Search, Result, Research, Researches, Results } from 'types/research';
-import { useCallback, Dispatch, SetStateAction } from 'react';
+import { Dispatch, SetStateAction, useCallback } from 'react';
+import { Research, Researches, Result, Results, Search } from 'types/research';
 
 export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const toggleStar = useCallback(

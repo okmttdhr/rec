@@ -1,6 +1,6 @@
-import createPersistedState from 'use-persisted-state';
-import { Researches } from 'types/research';
 import { useMemo } from 'react';
+import { Researches } from 'types/research';
+import createPersistedState from 'use-persisted-state';
 
 const useResearchesState = createPersistedState('researches');
 

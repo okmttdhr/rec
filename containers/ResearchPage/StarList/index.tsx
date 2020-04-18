@@ -1,8 +1,9 @@
-import * as React from 'react';
 import styled from '@emotion/styled';
+import * as React from 'react';
+
 import { useResultListActions } from '../hooks/useResultListActions';
-import { ResultList } from '../ResultList';
 import { useStarList } from '../hooks/useStarList';
+import { ResultList } from '../ResultList';
 
 type Props = ReturnType<typeof useStarList> & {
   resultActionsState: ReturnType<typeof useResultListActions>;

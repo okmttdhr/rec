@@ -1,7 +1,7 @@
-import { useCallback, useState, useEffect, Dispatch, SetStateAction } from 'react';
-import { v4 as uuid } from 'uuid';
-import { Search, Searches, Research, Researches } from 'types/research';
+import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { getSearchResults } from 'services/getSearchResults';
+import { Research, Researches, Search, Searches } from 'types/research';
+import { v4 as uuid } from 'uuid';
 
 export const useQueryForm = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const [q, setQ] = useState('');

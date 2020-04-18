@@ -1,5 +1,5 @@
-import { Search, Research, Researches, Results } from 'types/research';
-import { useCallback, Dispatch, SetStateAction, useMemo } from 'react';
+import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
+import { Research, Researches, Results, Search } from 'types/research';
 
 export const useSearchListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
   const searches = useMemo(() => {
