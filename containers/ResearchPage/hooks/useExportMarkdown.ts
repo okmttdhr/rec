@@ -57,7 +57,7 @@ ${searchResults(search.results)}
       }, ''),
     );
 
-export const useExport = (research: Research, stars: Searches) => {
+export const useExportMarkdown = (research: Research, stars: Searches) => {
   const exportMarkdown = useCallback(() => {
     const t = text(research, stars);
     const blob = new Blob([t], { type: 'text/plain;charset=utf-8' });

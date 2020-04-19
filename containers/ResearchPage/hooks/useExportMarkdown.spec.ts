@@ -1,7 +1,7 @@
 import { mockBuilder } from 'tests/mock-builder';
 import { Research, Search, Searches } from 'types/research';
 
-import { text } from './useExport';
+import { text } from './useExportMarkdown';
 
 const result = mockBuilder((i) => {
   return {
