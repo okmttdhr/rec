@@ -11,7 +11,7 @@ export const ResearchList: React.FC<Props> = ({ archive, researchesArray }) => {
 
   return (
     researchesArray.length > 0 && (
-      <>
+      <div>
         <h1>Your Researches</h1>
         <ul>
           {researchesArray.map((r) => (
@@ -25,7 +25,7 @@ export const ResearchList: React.FC<Props> = ({ archive, researchesArray }) => {
             </Item>
           ))}
         </ul>
-      </>
+      </div>
     )
   );
 };

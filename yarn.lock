@@ -3150,6 +3150,11 @@ file-entry-cache@^5.0.1:
   dependencies:
     flat-cache "^2.0.1"
 
+file-saver@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/file-saver/-/file-saver-2.0.2.tgz#06d6e728a9ea2df2cce2f8d9e84dfcdc338ec17a"
+  integrity sha512-Wz3c3XQ5xroCxd1G8b7yL0Ehkf0TC9oYC6buPFkNnU9EnaPlifeAFCyCh+iewXTyFRcg0a6j3J7FmJsIhlhBdw==
+
 file-uri-to-path@1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
@@ -3240,6 +3245,11 @@ fork-ts-checker-webpack-plugin@3.1.1:
     semver "^5.6.0"
     tapable "^1.0.0"
     worker-rpc "^0.1.0"
+
+fp-minimal@^1.0.5:
+  version "1.0.5"
+  resolved "https://registry.yarnpkg.com/fp-minimal/-/fp-minimal-1.0.5.tgz#a54b8124c25793b44a230549bafb090db4672134"
+  integrity sha512-hFIHEVJoEtih6MyaHwyTiNe7W6W3N7dRG1J/03SIhPmQS3RhUQv5rt3bRMYQiNsgXkhQ9ojfZ19q5+D2CxgiEw==
 
 fragment-cache@^0.2.1:
   version "0.2.1"
