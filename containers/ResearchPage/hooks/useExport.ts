@@ -25,40 +25,42 @@ const searchResults = (results: Results) => {
   }, '');
 };
 
-export const useExport = (research: Research, stars: Searches) => {
-  const exportMarkdown = useCallback(() => {
-    const text = ''
-      .concat(
-        `# Research for "${research.name}"
+export const text = (research: Research, stars: Searches) =>
+  ''
+    .concat(
+      `# Research for "${research.name}"
 
 ${research.notes}
 
 `,
-      )
-      .concat(
-        `## Stars
+    )
+    .concat(
+      `## Stars
 
 `,
-      )
-      .concat(
-        Object.values(stars).reduce((accS, star) => {
-          return accS.concat(`${starResults(star.results)}`);
-        }, ''),
-      )
-      .concat(
-        `
+    )
+    .concat(
+      Object.values(stars).reduce((accS, star) => {
+        return accS.concat(`${starResults(star.results)}`);
+      }, ''),
+    )
+    .concat(
+      `
 `,
-      )
-      .concat(
-        Object.values(research.searches).reduce((accS, search) => {
-          return accS.concat(`## ${search.q}
+    )
+    .concat(
+      Object.values(research.searches).reduce((accS, search) => {
+        return accS.concat(`## ${search.q}
 
 ${searchResults(search.results)}
 `);
-        }, ''),
-      );
+      }, ''),
+    );
 
-    const blob = new Blob([text], { type: 'text/plain;charset=utf-8' });
+export const useExport = (research: Research, stars: Searches) => {
+  const exportMarkdown = useCallback(() => {
+    const t = text(research, stars);
+    const blob = new Blob([t], { type: 'text/plain;charset=utf-8' });
     saveAs(blob, `${research.name}.md`);
   }, [research, stars]);
 
