@@ -51,7 +51,9 @@ export const useQueryForm = (research: Research, setResearches: Dispatch<SetStat
       const firstSearch = (research?.searches ?? [])[0];
       setQ(firstSearch?.q ?? '');
     }
-  }, [research, q]);
+    // Disallow empty only first time
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [research]);
 
   return {
     onChange,
