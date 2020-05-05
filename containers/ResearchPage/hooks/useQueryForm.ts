@@ -1,9 +1,10 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { getSearchResults } from 'services/getSearchResults';
-import { Research, Researches, Search, Searches } from 'types/research';
+import { updateResearch } from 'services/researches/util';
+import { Research, Search, Searches } from 'types/research';
 import { v4 as uuid } from 'uuid';
 
-export const useQueryForm = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
+export const useQueryForm = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const [q, setQ] = useState('');
 
   const onChange = useCallback(
@@ -43,21 +44,12 @@ export const useQueryForm = (research: Research, setResearches: Dispatch<SetStat
           },
         };
 
-        const researchID = research.id;
-        setResearches((rs) => {
-          return {
-            ...rs,
-            [researchID]: {
-              ...research,
-              searches,
-            },
-          };
-        });
+        setResearches((rs) => updateResearch(rs, { ...research, searches }));
       } catch (error) {
         console.log(error);
       }
     },
-    [q, research],
+    [q, research, setResearches],
   );
 
   useEffect(() => {

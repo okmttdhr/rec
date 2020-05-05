@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
-import { Research, Researches, Results, Search } from 'types/research';
+import { updateResearch } from 'services/researches/util';
+import { Research, Results, Search } from 'types/research';
 
-export const useSearchListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
+export const useSearchListActions = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const searches = useMemo(() => {
     return research?.searches ?? [];
   }, [research]);
@@ -21,36 +22,18 @@ export const useSearchListActions = (research: Research, setResearches: Dispatch
           show: !search.show,
         },
       };
-
-      setResearches((rs) => {
-        return {
-          ...rs,
-          [research.id]: {
-            ...research,
-            searches,
-          },
-        };
-      });
+      setResearches((rs) => updateResearch(rs, { ...research, searches }));
     },
-    [research],
+    [research, setResearches],
   );
 
   const archive = useCallback(
     (search: Search) => {
       const s = { ...research.searches };
       delete s[search.id];
-
-      setResearches((rs) => {
-        return {
-          ...rs,
-          [research.id]: {
-            ...research,
-            searches: s,
-          },
-        };
-      });
+      setResearches((rs) => updateResearch(rs, { ...research, searches: s }));
     },
-    [research],
+    [research, setResearches],
   );
 
   return {

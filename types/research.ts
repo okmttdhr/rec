@@ -29,7 +29,3 @@ export type Research = {
   notes: string;
   createdAt: string;
 };
-
-export type Researches = {
-  [key: string]: Research;
-};

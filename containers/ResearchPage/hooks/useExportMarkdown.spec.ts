@@ -1,53 +1,6 @@
-import { mockBuilder } from 'tests/mock-builder';
-import { Research, Search, Searches } from 'types/research';
+import { research, result, results, search, searches } from 'tests/__mocks__/research';
 
 import { text } from './useExportMarkdown';
-
-const result = mockBuilder((i) => {
-  return {
-    id: `ID_${i}`,
-    title: `TITLE_${i}`,
-    link: `http://example.com/${i}`,
-    star: false,
-    read: false,
-  };
-});
-const results = mockBuilder(() => {
-  return Array.from(Array(5).keys()).reduce((p, c) => {
-    return {
-      ...p,
-      [`ID_${c}`]: result.single(c),
-    };
-  }, {});
-});
-
-const search = mockBuilder<Search>((i) => {
-  return {
-    id: `ID_${i}`,
-    q: `Q_${i}`,
-    results: results.single(),
-    show: true,
-    createdAt: `CREATED_AT_${i}`,
-  };
-});
-const searches = mockBuilder<Searches>(() => {
-  return Array.from(Array(5).keys()).reduce((p, c) => {
-    return {
-      ...p,
-      [`ID_${c}`]: search.single(c),
-    };
-  }, {});
-});
-
-const research = mockBuilder<Research>((i) => {
-  return {
-    id: `ID_${i}`,
-    name: `NAME_${i}`,
-    searches: searches.single(),
-    notes: `NOTES_${i}`,
-    createdAt: `CREATED_AT_${i}`,
-  };
-});
 
 describe('text', () => {
   it('should generate markdown text', () => {

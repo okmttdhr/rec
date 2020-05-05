@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { Research, Researches, Result, Results, Search } from 'types/research';
+import { updateResearch } from 'services/researches/util';
+import { Research, Result, Search } from 'types/research';
 
-export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Researches>>) => {
+export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const toggleStar = useCallback(
     (search: Search, result: Result) => {
       const results = {
@@ -20,17 +21,9 @@ export const useResultListActions = (research: Research, setResearches: Dispatch
         },
       };
 
-      setResearches((rs) => {
-        return {
-          ...rs,
-          [research.id]: {
-            ...research,
-            searches,
-          },
-        };
-      });
+      setResearches((rs) => updateResearch(rs, { ...research, searches }));
     },
-    [research],
+    [research, setResearches],
   );
 
   const archive = useCallback(
@@ -46,17 +39,9 @@ export const useResultListActions = (research: Research, setResearches: Dispatch
         },
       };
 
-      setResearches((rs) => {
-        return {
-          ...rs,
-          [research.id]: {
-            ...research,
-            searches,
-          },
-        };
-      });
+      setResearches((rs) => updateResearch(rs, { ...research, searches }));
     },
-    [research],
+    [research, setResearches],
   );
 
   return {
