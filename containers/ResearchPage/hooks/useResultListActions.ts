@@ -1,23 +1,33 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { deleteResult, updateResult } from 'services/researches/util';
 import { Research, Result, Search } from 'types/research';
+import { deleteArrayItemByID, updateArrayItemByID } from 'utils/array';
 
 export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const toggleStar = useCallback(
     (search: Search, result: Result) => {
-      setResearches((rs) =>
-        updateResult(rs, research, search, {
-          ...result,
-          star: !result.star,
-        }),
-      );
+      const targetSearch = research.searches.find((s) => s.id === search.id);
+      if (!targetSearch) {
+        return;
+      }
+      const results = updateArrayItemByID<Result>(targetSearch.results, {
+        ...result,
+        star: !result.star,
+      });
+      const searches = updateArrayItemByID<Search>(research.searches, { ...targetSearch, results });
+      setResearches((rs) => updateArrayItemByID<Research>(rs, { ...research, searches }));
     },
     [research, setResearches],
   );
 
   const archive = useCallback(
     (search: Search, result: Result) => {
-      setResearches((rs) => deleteResult(rs, research, search, result.id));
+      const targetSearch = research.searches.find((s) => s.id === search.id);
+      if (!targetSearch) {
+        return;
+      }
+      const results = deleteArrayItemByID<Result>(targetSearch.results, result.id);
+      const searches = updateArrayItemByID<Search>(research.searches, { ...targetSearch, results });
+      setResearches((rs) => updateArrayItemByID<Research>(rs, { ...research, searches }));
     },
     [research, setResearches],
   );
