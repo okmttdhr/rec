@@ -1,11 +1,14 @@
-import { useCallback, useMemo } from 'react';
+import { useCallback, useEffect, useMemo } from 'react';
+import { VERSION } from 'services/constants';
 import { Research } from 'types/research';
 import createPersistedState from 'use-persisted-state';
 import { deleteArrayItemByID } from 'utils/array';
 
+const useVersion = createPersistedState('version');
 const useResearchesState = createPersistedState('researches');
 
 export const useResearchList = () => {
+  const [version, setVersion] = useVersion(VERSION);
   const [researches, setResearches] = useResearchesState<Research[]>([]);
 
   const researchesArray = useMemo(() => {
@@ -18,6 +21,13 @@ export const useResearchList = () => {
     },
     [setResearches],
   );
+
+  useEffect(() => {
+    if (version !== VERSION) {
+      setVersion(VERSION);
+      setResearches([]);
+    }
+  });
 
   return {
     archive,
