@@ -1,29 +1,39 @@
 import * as http from 'http';
 import fetch from 'isomorphic-unfetch';
+import { Search as GoogleCustomSearch } from 'types/customsearch';
 import { Result } from 'types/research';
 import * as url from 'url';
 
 export default async (req: http.IncomingMessage, res: http.ServerResponse) => {
-  const query = url.parse(req.url, true).query;
-  const response = await fetch(
-    `https://customsearch.googleapis.com/customsearch/v1?key=${process.env.GOOGLE_CUSTOM_SEARCH_KEY}&cx=${process.env.GOOGLE_CUSTOM_SEARCH_CX}&q=${query.q}`,
-  );
-  const data = await response.json();
-  const results: Result[] = data.items.map((item: any) => {
-    return {
-      id: item.cacheId,
-      title: item.title,
-      link: item.link,
-      star: false,
-      read: false,
-    };
-  });
+  try {
+    const GOOGLE_SECRETS = `key=${process.env.GOOGLE_CUSTOM_SEARCH_KEY}&cx=${process.env.GOOGLE_CUSTOM_SEARCH_CX}`;
 
-  res.statusCode = 200;
-  res.setHeader('Content-Type', 'application/json');
-  res.end(
-    JSON.stringify({
-      results,
-    }),
-  );
+    const query = url.parse(req.url, true).query as { q: string };
+    const q = `q=${query.q}`;
+
+    const response = await fetch(`https://customsearch.googleapis.com/customsearch/v1?${GOOGLE_SECRETS}&${q}`);
+
+    const data: GoogleCustomSearch = await response.json();
+    const results: Result[] = data.items.map((item) => {
+      return {
+        id: item.cacheId,
+        title: item.title,
+        link: item.link,
+        star: false,
+        read: false,
+      };
+    });
+
+    res.statusCode = 200;
+    res.setHeader('Content-Type', 'application/json');
+    res.end(
+      JSON.stringify({
+        results,
+      }),
+    );
+  } catch (error) {
+    console.log(error);
+    res.statusCode = 500;
+    res.end();
+  }
 };
