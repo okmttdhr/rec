@@ -15,7 +15,7 @@ describe('updateResearch', () => {
 });
 
 it('deleteResearch', () => {
-  const r = deleteSearch(search.multi(), search.single());
+  const r = deleteSearch(search.multi(), search.single().id);
   expect(r.length).toBe(4);
   expect(r[0].q).toBe('Q_1');
 });

@@ -49,7 +49,7 @@ export const useQueryForm = (research: Research, setResearches: Dispatch<SetStat
 
   useEffect(() => {
     if (q === '') {
-      const firstSearch = Object.values(research?.searches ?? {})[0];
+      const firstSearch = (research?.searches ?? [])[0];
       setQ(firstSearch?.q ?? '');
     }
   }, [research, q]);

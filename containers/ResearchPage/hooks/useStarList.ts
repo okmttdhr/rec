@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Research, Results, Search } from 'types/research';
+import { Research, Search } from 'types/research';
 
 export const useStarList = (research: Research) => {
   const [stars, setStars] = useState<Search[]>([]);
@@ -7,7 +7,7 @@ export const useStarList = (research: Research) => {
 
   const openAll = useCallback((searches: Search[]) => {
     searches.forEach((s) => {
-      Object.values(s.results).forEach((r) => {
+      s.results.forEach((r) => {
         window.open(r.link);
       });
     });
@@ -18,28 +18,9 @@ export const useStarList = (research: Research) => {
   }, [setShow]);
 
   useEffect(() => {
-    const starredResults = (results: Results) =>
-      Object.values(results)
-        .filter((r) => {
-          return r.star;
-        })
-        .reduce<Results>((p, c) => {
-          return {
-            ...p,
-            [c.id]: {
-              ...c,
-            },
-          };
-        }, {});
-
     const stars = (research?.searches ?? [])
-      .map((s) => {
-        return {
-          ...s,
-          results: starredResults(s.results),
-        };
-      })
-      .filter((s) => Object.values(s.results).length > 0);
+      .map((s) => ({ ...s, results: s.results.filter((r) => r.star) }))
+      .filter((s) => s.results.length > 0);
 
     setStars(stars);
   }, [research]);

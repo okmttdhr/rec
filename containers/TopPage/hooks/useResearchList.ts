@@ -9,12 +9,12 @@ export const useResearchList = () => {
   const [researches, setResearches] = useResearchesState<Research[]>([]);
 
   const researchesArray = useMemo(() => {
-    return Object.values(researches);
+    return researches;
   }, [researches]);
 
   const archive = useCallback(
     (research: Research) => {
-      setResearches((rs) => deleteResearch(rs, research));
+      setResearches((rs) => deleteResearch(rs, research.id));
     },
     [setResearches],
   );

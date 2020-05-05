@@ -1,10 +1,10 @@
 import { saveAs } from 'file-saver';
 import { pipe } from 'fp-minimal';
 import { useCallback } from 'react';
-import { Research, Results, Search } from 'types/research';
+import { Research, Result, Search } from 'types/research';
 
-const starResults = (results: Results) => {
-  return Object.values(results).reduce((accR, result) => {
+const starResults = (results: Result[]) => {
+  return results.reduce((accR, result) => {
     const link = `[${result.title}](${result.link})`;
     const bold = (t: string) => `**${t}**`;
     const bullet = (t: string) => `- ${t}
@@ -14,8 +14,8 @@ const starResults = (results: Results) => {
   }, '');
 };
 
-const searchResults = (results: Results) => {
-  return Object.values(results).reduce((accR, result) => {
+const searchResults = (results: Result[]) => {
+  return results.reduce((accR, result) => {
     const link = `[${result.title}](${result.link})`;
     const bold = (t: string) => (result.star ? `**${t}**` : t);
     const bullet = (t: string) => `- ${t}

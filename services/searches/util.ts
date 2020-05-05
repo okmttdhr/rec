@@ -1,17 +1,10 @@
 import { Search } from 'types/research';
-import { updateArray } from 'utils/array';
+import { deleteArrayItemByID, updateArrayItemByID } from 'utils/array';
 
 export const updateSearch = (searches: Search[], search: Search) => {
-  const i = searches.findIndex((r) => r.id === search.id);
-  if (i === -1) {
-    return updateArray(searches.length, search, searches);
-  }
-  return updateArray(i, search, searches);
+  return updateArrayItemByID(searches, search);
 };
 
-export const deleteSearch = (searches: Search[], search: Search) => {
-  const i = searches.findIndex((r) => r.id === search.id);
-  const arr = [...searches];
-  arr.splice(i, 1);
-  return arr;
+export const deleteSearch = (searches: Search[], id: string) => {
+  return deleteArrayItemByID(searches, id);
 };

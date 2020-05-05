@@ -1,17 +1,30 @@
-import { Research } from 'types/research';
-import { updateArray } from 'utils/array';
+import { Research, Result, Search } from 'types/research';
+import { deleteArrayItemByID, updateArrayItemByID } from 'utils/array';
 
 export const updateResearch = (researches: Research[], research: Research) => {
-  const i = researches.findIndex((r) => r.id === research.id);
-  if (i === -1) {
-    return updateArray(researches.length, research, researches);
-  }
-  return updateArray(i, research, researches);
+  return updateArrayItemByID(researches, research);
 };
 
-export const deleteResearch = (researches: Research[], research: Research) => {
-  const i = researches.findIndex((r) => r.id === research.id);
-  const arr = [...researches];
-  arr.splice(i, 1);
-  return arr;
+export const deleteResearch = (researches: Research[], id: string) => {
+  return deleteArrayItemByID(researches, id);
+};
+
+export const updateResult = (researches: Research[], research: Research, search: Search, result: Result) => {
+  const targetSearch = research.searches.find((s) => s.id === search.id);
+  if (!targetSearch) {
+    return;
+  }
+  const results = updateArrayItemByID<Result>(targetSearch.results, result);
+  const searches = updateArrayItemByID<Search>(research.searches, { ...targetSearch, results });
+  return updateArrayItemByID<Research>(researches, { ...research, searches });
+};
+
+export const deleteResult = (researches: Research[], research: Research, search: Search, resultID: string) => {
+  const targetSearch = research.searches.find((s) => s.id === search.id);
+  if (!targetSearch) {
+    return;
+  }
+  const results = deleteArrayItemByID<Result>(targetSearch.results, resultID);
+  const searches = updateArrayItemByID<Search>(research.searches, { ...targetSearch, results });
+  return updateArrayItemByID<Research>(researches, { ...research, searches });
 };

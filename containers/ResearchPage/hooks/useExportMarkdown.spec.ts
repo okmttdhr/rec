@@ -1,5 +1,6 @@
 import { updateSearch } from 'services/searches/util';
-import { research, result, results, search } from 'tests/__mocks__/research';
+import { research, result, search } from 'tests/__mocks__/research';
+import { updateArrayItemByID } from 'utils/array';
 
 import { text } from './useExportMarkdown';
 
@@ -12,19 +13,11 @@ describe('text', () => {
           updateSearch(
             search.multi(),
             search.single(0, {
-              results: results.single(0, {
-                ID_0: result.single(0, {
-                  star: true,
-                }),
-              }),
+              results: updateArrayItemByID(result.multi(), result.single(0, { star: true })),
             }),
           ),
           search.single(1, {
-            results: results.single(1, {
-              ID_1: result.single(1, {
-                star: true,
-              }),
-            }),
+            results: updateArrayItemByID(result.multi(), result.single(1, { star: true })),
           }),
         ),
       },

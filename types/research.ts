@@ -6,14 +6,10 @@ export type Result = {
   read: boolean;
 };
 
-export type Results = {
-  [key: string]: Result;
-};
-
 export type Search = {
   id: string;
   q: string;
-  results: Results;
+  results: Result[];
   show: boolean;
   createdAt: string;
 };

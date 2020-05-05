@@ -1,38 +1,23 @@
 import { Dispatch, SetStateAction, useCallback } from 'react';
-import { updateResearch } from 'services/researches/util';
-import { updateSearch } from 'services/searches/util';
+import { deleteResult, updateResult } from 'services/researches/util';
 import { Research, Result, Search } from 'types/research';
 
 export const useResultListActions = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const toggleStar = useCallback(
     (search: Search, result: Result) => {
-      const targetSearch = research.searches.find((s) => s.id === search.id);
-      if (!targetSearch) {
-        return;
-      }
-      const results = {
-        ...targetSearch.results,
-        [result.id]: {
+      setResearches((rs) =>
+        updateResult(rs, research, search, {
           ...result,
           star: !result.star,
-        },
-      };
-      const searches = updateSearch(research.searches, { ...search, results });
-      setResearches((rs) => updateResearch(rs, { ...research, searches }));
+        }),
+      );
     },
     [research, setResearches],
   );
 
   const archive = useCallback(
     (search: Search, result: Result) => {
-      const targetSearch = research.searches.find((s) => s.id === search.id);
-      if (!targetSearch) {
-        return;
-      }
-      const results = { ...targetSearch.results };
-      delete results[result.id];
-      const searches = updateSearch(research.searches, { ...search, results });
-      setResearches((rs) => updateResearch(rs, { ...research, searches }));
+      setResearches((rs) => deleteResult(rs, research, search, result.id));
     },
     [research, setResearches],
   );
