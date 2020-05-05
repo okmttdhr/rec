@@ -1,7 +1,6 @@
 import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
-import { updateResearch } from 'services/researches/util';
-import { deleteSearch, updateSearch } from 'services/searches/util';
 import { Research, Result, Search } from 'types/research';
+import { deleteArrayItemByID, updateArrayItemByID } from 'utils/array';
 
 export const useSearchListActions = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const searches = useMemo(() => {
@@ -16,19 +15,19 @@ export const useSearchListActions = (research: Research, setResearches: Dispatch
 
   const toggle = useCallback(
     (search: Search) => {
-      const searches = updateSearch(research.searches, {
+      const searches = updateArrayItemByID(research.searches, {
         ...search,
         show: !search.show,
       });
-      setResearches((rs) => updateResearch(rs, { ...research, searches }));
+      setResearches((rs) => updateArrayItemByID<Research>(rs, { ...research, searches }));
     },
     [research, setResearches],
   );
 
   const archive = useCallback(
     (search: Search) => {
-      const s = deleteSearch(research.searches, search.id);
-      setResearches((rs) => updateResearch(rs, { ...research, searches: s }));
+      const s = deleteArrayItemByID(research.searches, search.id);
+      setResearches((rs) => updateArrayItemByID<Research>(rs, { ...research, searches: s }));
     },
     [research, setResearches],
   );

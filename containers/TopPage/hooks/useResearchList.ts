@@ -1,7 +1,7 @@
 import { useCallback, useMemo } from 'react';
-import { deleteResearch } from 'services/researches/util';
 import { Research } from 'types/research';
 import createPersistedState from 'use-persisted-state';
+import { deleteArrayItemByID } from 'utils/array';
 
 const useResearchesState = createPersistedState('researches');
 
@@ -14,7 +14,7 @@ export const useResearchList = () => {
 
   const archive = useCallback(
     (research: Research) => {
-      setResearches((rs) => deleteResearch(rs, research.id));
+      setResearches((rs) => deleteArrayItemByID<Research>(rs, research.id));
     },
     [setResearches],
   );

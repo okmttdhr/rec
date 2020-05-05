@@ -1,4 +1,3 @@
-import { updateSearch } from 'services/searches/util';
 import { research, result, search } from 'tests/__mocks__/research';
 import { updateArrayItemByID } from 'utils/array';
 
@@ -9,8 +8,8 @@ describe('text', () => {
     const t = text(
       {
         ...research.single(),
-        searches: updateSearch(
-          updateSearch(
+        searches: updateArrayItemByID(
+          updateArrayItemByID(
             search.multi(),
             search.single(0, {
               results: updateArrayItemByID(result.multi(), result.single(0, { star: true })),

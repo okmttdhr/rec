@@ -1,7 +1,7 @@
 import linkifyHtml from 'linkifyjs/html';
 import { Dispatch, SetStateAction, useCallback, useMemo } from 'react';
-import { updateResearch } from 'services/researches/util';
 import { Research } from 'types/research';
+import { updateArrayItemByID } from 'utils/array';
 
 export const useNotes = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
   const notes = useMemo(() => {
@@ -15,7 +15,7 @@ export const useNotes = (research: Research, setResearches: Dispatch<SetStateAct
       // TODO: Consider performance
       const notes = linkifyHtml(target.value, { attributes: { contenteditable: 'false' } });
 
-      setResearches((rs) => updateResearch(rs, { ...research, notes }));
+      setResearches((rs) => updateArrayItemByID<Research>(rs, { ...research, notes }));
     },
     [research, setResearches],
   );
