@@ -1,4 +1,5 @@
-import { research, result, results, search, searches } from 'tests/__mocks__/research';
+import { updateSearch } from 'services/searches/util';
+import { research, result, results, search } from 'tests/__mocks__/research';
 
 import { text } from './useExportMarkdown';
 
@@ -7,25 +8,27 @@ describe('text', () => {
     const t = text(
       {
         ...research.single(),
-        searches: {
-          ...searches.single(),
-          ID_0: search.single(0, {
-            results: results.single(0, {
-              ID_0: result.single(0, {
-                star: true,
+        searches: updateSearch(
+          updateSearch(
+            search.multi(),
+            search.single(0, {
+              results: results.single(0, {
+                ID_0: result.single(0, {
+                  star: true,
+                }),
               }),
             }),
-          }),
-          ID_1: search.single(1, {
+          ),
+          search.single(1, {
             results: results.single(1, {
               ID_1: result.single(1, {
                 star: true,
               }),
             }),
           }),
-        },
+        ),
       },
-      searches.single(),
+      search.multi(),
     );
     expect(t).toBe(`# Research for "NAME_0"
 

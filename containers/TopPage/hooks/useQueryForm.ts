@@ -22,15 +22,15 @@ export const useQueryForm = (setResearches: Dispatch<SetStateAction<Research[]>>
         const results = await getSearchResults(q);
 
         const searchID = uuid();
-        const searches = {
-          [searchID]: {
+        const searches = [
+          {
             id: searchID,
             q,
             results,
             show: true,
             createdAt: '',
           },
-        };
+        ];
 
         const researchID = uuid();
         setResearches((rs) => {

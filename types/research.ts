@@ -18,14 +18,10 @@ export type Search = {
   createdAt: string;
 };
 
-export type Searches = {
-  [key: string]: Search;
-};
-
 export type Research = {
   id: string;
   name: string;
-  searches: Searches;
+  searches: Search[];
   notes: string;
   createdAt: string;
 };

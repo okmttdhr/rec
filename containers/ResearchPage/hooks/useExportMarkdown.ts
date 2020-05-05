@@ -1,7 +1,7 @@
 import { saveAs } from 'file-saver';
 import { pipe } from 'fp-minimal';
 import { useCallback } from 'react';
-import { Research, Results, Searches } from 'types/research';
+import { Research, Results, Search } from 'types/research';
 
 const starResults = (results: Results) => {
   return Object.values(results).reduce((accR, result) => {
@@ -25,7 +25,7 @@ const searchResults = (results: Results) => {
   }, '');
 };
 
-export const text = (research: Research, stars: Searches) =>
+export const text = (research: Research, stars: Search[]) =>
   ''
     .concat(
       `# Research for "${research.name}"
@@ -40,7 +40,7 @@ ${research.notes}
 `,
     )
     .concat(
-      Object.values(stars).reduce((accS, star) => {
+      stars.reduce((accS, star) => {
         return accS.concat(`${starResults(star.results)}`);
       }, ''),
     )
@@ -49,7 +49,7 @@ ${research.notes}
 `,
     )
     .concat(
-      Object.values(research.searches).reduce((accS, search) => {
+      research.searches.reduce((accS, search) => {
         return accS.concat(`## ${search.q}
 
 ${searchResults(search.results)}
@@ -57,7 +57,7 @@ ${searchResults(search.results)}
       }, ''),
     );
 
-export const useExportMarkdown = (research: Research, stars: Searches) => {
+export const useExportMarkdown = (research: Research, stars: Search[]) => {
   const exportMarkdown = useCallback(() => {
     const t = text(research, stars);
     const blob = new Blob([t], { type: 'text/plain;charset=utf-8' });

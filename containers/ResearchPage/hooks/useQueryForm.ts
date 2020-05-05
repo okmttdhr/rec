@@ -1,7 +1,8 @@
 import { Dispatch, SetStateAction, useCallback, useEffect, useState } from 'react';
 import { getSearchResults } from 'services/getSearchResults';
 import { updateResearch } from 'services/researches/util';
-import { Research, Search, Searches } from 'types/research';
+import { updateSearch } from 'services/searches/util';
+import { Research, Search } from 'types/research';
 import { v4 as uuid } from 'uuid';
 
 export const useQueryForm = (research: Research, setResearches: Dispatch<SetStateAction<Research[]>>) => {
@@ -22,27 +23,21 @@ export const useQueryForm = (research: Research, setResearches: Dispatch<SetStat
 
         const results = await getSearchResults(q);
 
-        const hiddenSearches = Object.values(research.searches).reduce((p: Searches | {}, c: Search) => {
+        const hiddenSearches = research.searches.map((s) => {
           return {
-            ...p,
-            [c.id]: {
-              ...c,
-              show: false,
-            },
+            ...s,
+            show: false,
           };
-        }, {});
+        });
 
         const searchID = uuid();
-        const searches = {
-          ...hiddenSearches,
-          [searchID]: {
-            id: searchID,
-            q,
-            results,
-            show: true,
-            createdAt: '',
-          },
-        };
+        const searches = updateSearch(hiddenSearches, {
+          id: searchID,
+          q,
+          results,
+          show: true,
+          createdAt: '',
+        });
 
         setResearches((rs) => updateResearch(rs, { ...research, searches }));
       } catch (error) {

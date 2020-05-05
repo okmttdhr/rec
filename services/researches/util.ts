@@ -3,6 +3,9 @@ import { updateArray } from 'utils/array';
 
 export const updateResearch = (researches: Research[], research: Research) => {
   const i = researches.findIndex((r) => r.id === research.id);
+  if (i === -1) {
+    return updateArray(researches.length, research, researches);
+  }
   return updateArray(i, research, researches);
 };
 

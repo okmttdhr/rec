@@ -1,5 +1,5 @@
 import { mockBuilder } from 'tests/mock-builder';
-import { Research, Result, Results, Search, Searches } from 'types/research';
+import { Research, Result, Results, Search } from 'types/research';
 
 export const result = mockBuilder<Result>((i) => {
   return {
@@ -28,20 +28,12 @@ export const search = mockBuilder<Search>((i) => {
     createdAt: `CREATED_AT_${i}`,
   };
 });
-export const searches = mockBuilder<Searches>(() => {
-  return Array.from(Array(5).keys()).reduce((p, c) => {
-    return {
-      ...p,
-      [`ID_${c}`]: search.single(c),
-    };
-  }, {});
-});
 
 export const research = mockBuilder<Research>((i) => {
   return {
     id: `ID_${i}`,
     name: `NAME_${i}`,
-    searches: searches.single(),
+    searches: search.multi(),
     notes: `NOTES_${i}`,
     createdAt: `CREATED_AT_${i}`,
   };
