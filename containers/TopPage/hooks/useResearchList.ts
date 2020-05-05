@@ -27,7 +27,7 @@ export const useResearchList = () => {
       setVersion(VERSION);
       setResearches([]);
     }
-  });
+  }, [version, setVersion, setResearches]);
 
   return {
     archive,

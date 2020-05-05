@@ -19,7 +19,7 @@ export const useResearch = (id: string) => {
       setVersion(VERSION);
       setResearches([]);
     }
-  });
+  }, [version, setVersion, setResearches]);
 
   return {
     research,
