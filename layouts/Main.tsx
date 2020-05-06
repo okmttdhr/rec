@@ -1,9 +1,11 @@
+import styled from '@emotion/styled';
 import Head from 'next/head';
 import * as React from 'react';
+import { mq } from 'styles';
 
 export const MainLayout: React.FC<{}> = ({ children }) => {
   return (
-    <div>
+    <Layout>
       <Head>
         <title>Rec</title>
         <meta
@@ -13,6 +15,15 @@ export const MainLayout: React.FC<{}> = ({ children }) => {
         <link rel="manifest" href="/static/manifest.json" />
       </Head>
       {children}
-    </div>
+    </Layout>
   );
 };
+
+const Layout = styled.div`
+  display: flex;
+  flex-direction: column;
+  ${mq.lg} {
+    width: 50%;
+    margin: auto;
+  }
+`;
