@@ -40,6 +40,9 @@ const List = styled.ul`
 const TitleWrapper = styled.div`
   display: flex;
   align-items: center;
+  &:hover {
+    background-color: #ddd;
+  }
 `;
 
 const Title = styled.h2`
